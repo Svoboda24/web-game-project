@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Clicker Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.js"></script>
+</head>
+<body>
+
+<div id="ui">
+  <div class="stats-panel">
+    <div class="counter">
+      <span class="coin-icon">🪙</span>
+      <span id="coins">0</span>
+    </div>
+    <div class="level-info">
+      <div class="level-badge">
+        <span class="level-icon">⭐</span>
+        <span id="level-text">1</span>
+      </div>
+      <div class="xp-container">
+        <div class="xp-bar-bg">
+          <div id="xp-fill" class="xp-fill"></div>
+        </div>
+        <span id="xp-text" class="xp-text">0 / 100 XP</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-navigation">
+    <button class="tab-button active" data-tab="clicker">Клик</button>
+    <button class="tab-button" data-tab="store">Магазин</button>
+    <button class="tab-button" data-tab="garage">Гараж</button>
+  </div>
+
+  <div class="tab-content">
+    <div id="clicker-tab" class="tab-pane active">
+      <div class="clicker-view">
+        <div id="game-placeholder"></div>
+        <p class="hint">Нажимай на авто, чтобы заработать!</p>
+        <p class="hint">⭐ Каждый клик дает 1 XP ⭐</p>
+      </div>
+    </div>
+
+    <div id="store-tab" class="tab-pane">
+      <div class="cases-grid">
+        <div class="case-card common-style" data-case-type="common">
+          <div class="case-badge">Common</div>
+          <div class="case-icon">📦</div>
+          <h4>Обычный кейс</h4>
+          <p class="case-price">1 🪙</p>
+          <button class="case-button" data-case-type="common">Открыть</button>
+        </div>
+        <div class="case-card elite-style" data-case-type="elite">
+          <div class="case-badge">Elite</div>
+          <div class="case-icon">💎</div>
+          <h4>Элитный кейс</h4>
+          <p class="case-price">3 🪙</p>
+          <button class="case-button" data-case-type="elite">Открыть</button>
+        </div>
+        <div class="case-card underground-style" data-case-type="underground">
+          <div class="case-badge">Rare</div>
+          <div class="case-icon">🔥</div>
+          <h4>Подпольный кейс</h4>
+          <p class="case-price">5 🪙</p>
+          <button class="case-button" data-case-type="underground">Открыть</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="garage-tab" class="tab-pane">
+  <div class="garage-header">
+    <h3>🏎️ Ваш Гараж</h3>
+    <div class="garage-stats">
+      <span class="garage-count" id="garage-count">0</span>
+      <span class="garage-total">/ 9</span>
+    </div>
+  </div>
+  
+  <!-- Пагинация -->
+  <div class="garage-pagination">
+    <button class="pagination-btn" id="prev-page" disabled>◀ Предыдущая</button>
+    <span class="page-info" id="page-info">Страница 1 / 1</span>
+    <button class="pagination-btn" id="next-page">Следующая ▶</button>
+  </div>
+  
+  <div class="garage-grid-container">
+    <div id="garage-list" class="garage-grid"></div>
+  </div>
+</div>
+
+<div id="case-overlay" class="case-overlay" style="display: none;">
+  <div class="overlay-bg"></div>
+  <div class="roulette-wrapper">
+    <div class="selector-line"></div>
+    <div id="roulette-tape" class="roulette-tape"></div>
+  </div>
+</div>
+
+<div id="car-details-overlay" class="case-overlay" style="display: none;">
+  <div class="overlay-bg" onclick="this.parentElement.style.display='none'"></div>
+  <div class="drop-modal">
+    <div id="det-icon" style="font-size: 64px; margin-bottom: 10px;">🏎️</div>
+    <h2 id="det-name">Название</h2>
+    <div id="det-rarity" class="rarity-badge">EPIC</div>
+    <div class="stats-container">
+      <div class="stat-row">
+        <span>Скорость</span>
+        <div class="stat-bar">
+          <div id="bar-speed" class="stat-fill"></div>
+        </div>
+        <span class="stat-value" id="speed-value">0</span>
+      </div>
+      <div class="stat-row">
+        <span>Разгон</span>
+        <div class="stat-bar">
+          <div id="bar-accel" class="stat-fill"></div>
+        </div>
+        <span class="stat-value" id="accel-value">0</span>
+      </div>
+      <div class="stat-row">
+        <span>Мощь</span>
+        <div class="stat-bar">
+          <div id="bar-power" class="stat-fill"></div>
+        </div>
+        <span class="stat-value" id="power-value">0</span>
+      </div>
+      <div class="stat-row">
+        <span>Управление</span>
+        <div class="stat-bar">
+          <div id="bar-handling" class="stat-fill"></div>
+        </div>
+        <span class="stat-value" id="handling-value">0</span>
+      </div>
+    </div>
+    <button class="case-button" id="modal-action-btn">Действие</button>
+  </div>
+</div>
+
+<script src="cars.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
